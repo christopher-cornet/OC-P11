@@ -7,8 +7,15 @@ function App() {
     <div>
       <Header />
       <main>
-        <section>
-          <p>test1</p>
+        <section className="home_first_section">
+          <div className="content">
+            <p className="title">
+              No fees. <br /> 
+              No minimum deposit. <br />
+              High interest rates.
+            </p>
+            <p className="subtitle">Open a savings account with Argent Bank today!</p>
+          </div>
         </section>
         <section>
           <p>test2</p>
