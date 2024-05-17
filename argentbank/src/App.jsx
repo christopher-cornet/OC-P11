@@ -4,7 +4,7 @@ import Header from "./components/Header/Header"
 
 function App() {
   return (
-    <div>
+    <div className="homepage">
       <Header />
       <main>
         <section className="home_first_section">

@@ -1,3 +1,10 @@
+.homepage {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
 .home_first_section {
   background-image: url(../src/images/bank-tree.webp);
   background-size: cover;
@@ -10,7 +17,7 @@
 .content {
   position: relative;
   background-color: white;
-  top: 10%;
+  top: 2rem;
   width: 200px;
   text-align: left;
   padding: 2rem;
