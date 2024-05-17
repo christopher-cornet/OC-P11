@@ -4,7 +4,7 @@ import HomeCard from "./components/HomeCard/HomeCard"
 import img1 from "../src/images/icon-chat.webp"
 import img2 from "../src/images/icon-money.webp"
 import img3 from "../src/images/icon-security.webp"
-// import Footer from "./components/Footer/Footer"
+import Footer from "./components/Footer/Footer"
 
 function App() {
   return (
@@ -42,7 +42,7 @@ function App() {
           />
         </section>
       </main>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
