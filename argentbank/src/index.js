@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login/Login";
+import Profile from "./pages/Profile/Profile";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -12,7 +13,7 @@ root.render(
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/login" element={<Login />} />
-      {/* <Route path="/profile" element={<Profile />} /> */}
+      <Route path="/profile" element={<Profile />} />
       {/* <Route path="*" element={<NoPage />} /> */}
     </Routes>
   </BrowserRouter>
