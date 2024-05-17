@@ -15,7 +15,7 @@ function Header() {
           </Link>
           <Link to="login">
             <section className="login">
-                <FontAwesomeIcon icon={faCircleUser} className="user-icon" size="lg" style={{color: "#000000",}} />
+                <FontAwesomeIcon icon={faCircleUser} className="user-icon" size="lg" style={{color: "#2c3e50",}} />
                 <p className="sign-in">Sign In</p>
             </section>
           </Link>

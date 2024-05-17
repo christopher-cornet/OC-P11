@@ -1,0 +1,60 @@
+.login-main {
+    flex: 1;
+    background-color: #12002b;
+}
+
+.login-form {
+    box-sizing: border-box;
+    background-color: white;
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 3rem;
+    padding: 2rem;
+    h2 {
+        text-align: center;
+        color: #2C3E50;
+    }
+    label {
+        font-weight: bold;
+        color: #2C3E50;
+    }
+    .login-button {
+        display: block;
+        width: 100%;
+        padding: 8px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-top: 1rem;
+        border-color: #00bc77;
+        background-color: #00bc77;
+        color: #fff;
+    }
+    .input-remember {
+        display: flex;
+        label {
+            margin-left: 0.25rem;
+            color: #2C3E50;
+            margin: 0;
+            font-weight: normal;
+        }
+    }
+}
+
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 1rem;
+    label {
+        font-weight: bold;
+    }
+    input {
+        padding: 5px;
+        font-size: 1.2rem;
+    }
+}
+
+.login-user-icon {
+    display: block;
+    margin: 0 auto;
+}

@@ -4,14 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login/Login";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} />
-      {/* <Route path="/login" element={<Login />} />
-      <Route path="/profile" element={<Profile />} /> */}
+      <Route path="/login" element={<Login />} />
+      {/* <Route path="/profile" element={<Profile />} /> */}
       {/* <Route path="*" element={<NoPage />} /> */}
     </Routes>
   </BrowserRouter>

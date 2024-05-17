@@ -7,6 +7,7 @@ import img3 from "../src/images/icon-security.webp"
 import Footer from "./components/Footer/Footer"
 
 function App() {
+  document.title = "Argent Bank - Home Page";
   return (
     <div className="homepage">
       <Header />
