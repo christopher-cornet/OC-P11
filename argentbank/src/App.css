@@ -36,8 +36,8 @@
 
 @media (min-width: 920px) {
   .home_first_section {
-      height: 400px;
-      background-position: 0% 33%;
+    height: 400px;
+    background-position: 0% 33%;
   }
 
   .content {
@@ -52,5 +52,10 @@
     .title {
       font-size: 1.5rem;
     }
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: row;
   }
 }
