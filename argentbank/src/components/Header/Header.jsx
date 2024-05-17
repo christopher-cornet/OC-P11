@@ -13,10 +13,10 @@ function Header() {
                 <img src={logo} className="logo" alt="Accueil du site Argent Bank" />
             </section>
           </Link>
-          <Link to="login">
+          <Link to="/login">
             <section className="login">
                 <FontAwesomeIcon icon={faCircleUser} className="user-icon" size="lg" style={{color: "#2c3e50",}} />
-                <p className="sign-in">Sign In</p>
+                <p className="sign-in">Log In</p>
             </section>
           </Link>
       </header>
