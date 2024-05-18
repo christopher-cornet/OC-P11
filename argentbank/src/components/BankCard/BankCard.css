@@ -1,0 +1,35 @@
+.argentbank-card {
+    background-color: #3d3d3d;
+    color: white;
+    margin: 5px 20px;
+    padding: 5px 20px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    p {
+        margin: 10px 0;
+    }
+}
+
+.argentbank-card-info {
+    padding: 10px 0;
+}
+
+.argentbank-card-title {
+    font-size: 18px;
+}
+
+.argentbank-card-amount {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.arrow {
+    height: 80px;
+    margin-right: 20px;
+    cursor: pointer;
+}

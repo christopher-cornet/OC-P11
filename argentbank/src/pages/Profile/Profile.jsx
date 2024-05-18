@@ -1,20 +1,29 @@
 import './Profile.css';
 import Header from "../../components/Header/Header"
+import BankCard from "../../components/BankCard/BankCard"
+import Footer from "../../components/Footer/Footer"
 
 function Profile() {
   document.title = "Argent Bank - Profile Page";
   return (
-    <div className="homepage">
+    <div className="profile_page">
         <Header />
-        <section className="profile-informations">
+        <main className="profile-informations">
             <div className="welcome-informations">
                 <h1 className="welcome-user">
-                    Welcome back,<br />
+                    Welcome back<br />
                     Name!
                 </h1>
                 <button>Edit Name</button>
             </div>
-        </section>
+            <div className="argentbank-user-cards">
+              <BankCard />
+              <BankCard />
+              <BankCard />
+              {/* <BankCard title="Argent Bank Checking (x8349)" amount="$2,082.79" amountDescription="Available Balance" /> */}
+            </div>
+        </main>
+        <Footer />
     </div>
   );
 }
