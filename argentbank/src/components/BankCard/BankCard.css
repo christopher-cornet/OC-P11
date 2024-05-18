@@ -30,6 +30,12 @@
 
 .arrow {
     height: 80px;
-    margin-right: 20px;
-    cursor: pointer;
+
+}
+
+@media screen and (min-width: 920px) {
+    .arrow {
+        margin-right: 20px;
+        cursor: pointer;
+    }
 }
