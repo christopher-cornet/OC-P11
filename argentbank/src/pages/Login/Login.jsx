@@ -4,32 +4,75 @@ import Footer from "../../components/Footer/Footer"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 
+const url = "http://localhost:3001/api/v1/user/login";
+
 function Login() {
   document.title = "Argent Bank - Login Page";
+
+  // Login the user
+  async function loginUser(event) {
+    event.preventDefault();
+
+    const email = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    let login = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        "email": email,
+        "password": password
+      })
+    });
+
+    let data = await login.json();
+
+    if (email && password) {
+      if (data.status === 200) {
+        window.location.href = "/profile";
+      }
+      else if (data.message === "Error: User not found!") {
+        document.querySelector(".error").innerHTML = "Email invalide.";
+      }
+      else if (data.message === "Error: Password is invalid") {
+        document.querySelector(".error").innerHTML = "Mot de passe invalide.";
+      }
+      else {
+        document.querySelector(".error").innerHTML = "Identifiant ou mot de passe incorrect.";
+      }
+    }
+    else {
+      document.querySelector(".error").innerHTML = "Le mail ou le mot de passe n'est pas renseigné.";
+    }
+  }
+
   return (
     <div className="homepage">
       <Header />
         <main className="login-main">
             <section className="login-form">
-                <div className="login-content">
-                    <FontAwesomeIcon icon={faCircleUser} className="login-user-icon" size="lg" style={{color: "#2c3e50",}} />
-                    <h2 className="login-form-title">Log in</h2>
-                    <form>
-                        <div className="input-wrapper">
-                            <label htmlFor="username">Username</label>
-                            <input type="text" id="username" name="username" />
-                        </div>
-                        <div className="input-wrapper">
-                            <label htmlFor="password">Password</label>
-                            <input type="password" id="password" name="password" />
-                        </div>
-                        <div className="input-remember">
-                            <input type="checkbox" name="remember" id="remember-me" />
-                            <label htmlFor="remember-me">Remember me</label>
-                        </div>
-                        <button className="login-button" type="submit">Log in</button>
-                    </form>
-                </div>
+              <div className="login-content">
+                  <FontAwesomeIcon icon={faCircleUser} className="login-user-icon" size="lg" style={{color: "#2c3e50",}} />
+                  <h2 className="login-form-title">Log in</h2>
+                  <form>
+                    <div className="input-wrapper">
+                      <label htmlFor="username">Username</label>
+                      <input type="text" id="username" name="username" required />
+                    </div>
+                    <div className="input-wrapper">
+                      <label htmlFor="password">Password</label>
+                      <input type="password" id="password" name="password" required />
+                    </div>
+                    <div className="input-remember">
+                      <input type="checkbox" name="remember" id="remember-me" />
+                      <label htmlFor="remember-me">Remember me</label>
+                    </div>
+                    <button className="login-button" type="submit" onClick={loginUser}>Log in</button>
+                  </form>
+                  <div className="error"></div>
+              </div>
             </section>
         </main>
         <Footer />
