@@ -9,6 +9,27 @@ const url = "http://localhost:3001/api/v1/user/login";
 function Login() {
   document.title = "Argent Bank - Login Page";
 
+  // Handle request response
+  function handleRequestResponse(email, password, data) {
+    if (email && password) {
+      if (data.status === 200) {
+        window.location.href = "/profile";
+      }
+      else if (data.message === "Error: User not found!") {
+        document.querySelector(".error").innerHTML = "Email invalide.";
+      }
+      else if (data.message === "Error: Password is invalid") {
+        document.querySelector(".error").innerHTML = "Mot de passe invalide.";
+      }
+      else {
+        document.querySelector(".error").innerHTML = "Identifiant ou mot de passe incorrect.";
+      }
+    }
+    else {
+      document.querySelector(".error").innerHTML = "Le mail ou le mot de passe n'est pas renseigné.";
+    }
+  } 
+
   // Login the user
   async function loginUser(event) {
     event.preventDefault();
@@ -29,23 +50,7 @@ function Login() {
 
     let data = await login.json();
 
-    if (email && password) {
-      if (data.status === 200) {
-        window.location.href = "/profile";
-      }
-      else if (data.message === "Error: User not found!") {
-        document.querySelector(".error").innerHTML = "Email invalide.";
-      }
-      else if (data.message === "Error: Password is invalid") {
-        document.querySelector(".error").innerHTML = "Mot de passe invalide.";
-      }
-      else {
-        document.querySelector(".error").innerHTML = "Identifiant ou mot de passe incorrect.";
-      }
-    }
-    else {
-      document.querySelector(".error").innerHTML = "Le mail ou le mot de passe n'est pas renseigné.";
-    }
+    handleRequestResponse(email, password, data);
   }
 
   return (
