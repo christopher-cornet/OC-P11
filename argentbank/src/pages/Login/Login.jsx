@@ -3,17 +3,25 @@ import Header from "../../components/Header/Header"
 import Footer from "../../components/Footer/Footer"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
+import { loginAction } from '../../redux/actions';
+import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 
 const url = "http://localhost:3001/api/v1/user/login";
 
 function Login() {
   document.title = "Argent Bank - Login Page";
 
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
+
   // Handle request response
   function handleRequestResponse(email, password, data) {
     if (email && password) {
       if (data.status === 200) {
-        window.location.href = "/profile";
+        window.sessionStorage.setItem("token", data.body.token);
+        dispatch(loginAction(data.body.token));
+        navigate("/profile");
       }
       else if (data.message === "Error: User not found!") {
         document.querySelector(".error").innerHTML = "Email invalide.";
