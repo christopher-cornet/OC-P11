@@ -4,7 +4,7 @@ import Footer from "../../components/Footer/Footer"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { loginAction } from '../../redux/actions';
-import { useDispatch } from "react-redux";
+import { useStore } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 
 const url = "http://localhost:3001/api/v1/user/login";
@@ -12,15 +12,16 @@ const url = "http://localhost:3001/api/v1/user/login";
 function Login() {
   document.title = "Argent Bank - Login Page";
 
-  const dispatch = useDispatch();
+  const store = useStore();
   let navigate = useNavigate();
 
   // Handle request response
   function handleRequestResponse(email, password, data) {
+    console.log(data);
     if (email && password) {
       if (data.status === 200) {
         window.sessionStorage.setItem("token", data.body.token);
-        dispatch(loginAction(data.body.token));
+        store.dispatch(loginAction(data.body.token));
         navigate("/profile");
       }
       else if (data.message === "Error: User not found!") {
@@ -42,7 +43,7 @@ function Login() {
   async function loginUser(event) {
     event.preventDefault();
 
-    const email = document.getElementById("username").value;
+    const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
     let login = await fetch(url, {
@@ -71,8 +72,8 @@ function Login() {
                   <h2 className="login-form-title">Log in</h2>
                   <form>
                     <div className="input-wrapper">
-                      <label htmlFor="username">Username</label>
-                      <input type="text" id="username" name="username" required />
+                      <label htmlFor="email">Email</label>
+                      <input type="email" id="email" name="email" required />
                     </div>
                     <div className="input-wrapper">
                       <label htmlFor="password">Password</label>

@@ -3,7 +3,7 @@ import Header from "../../components/Header/Header"
 import BankCard from "../../components/BankCard/BankCard"
 import Footer from "../../components/Footer/Footer"
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useStore } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { userProfile } from '../../redux/actions';
 
@@ -12,7 +12,7 @@ const url = "http://localhost:3001/api/v1/user/profile";
 function Profile() {
   document.title = "Argent Bank - Profile Page";
 
-  const dispatch = useDispatch();
+  const store = useStore();
   let navigate = useNavigate();
 
   const token = window.sessionStorage.getItem("token");
@@ -38,7 +38,7 @@ function Profile() {
       .then((data) => {
         console.log(data);
         SetUserData(data.body);
-        dispatch(
+        store.dispatch(
           userProfile({
             email: data.body.email,
             firstName: data.body.firstName,
@@ -47,7 +47,7 @@ function Profile() {
           })
         );
       });
-  }, [token, dispatch]);
+  }, [store, token]);
 
   return (
     <div className="profile_page">
@@ -55,8 +55,8 @@ function Profile() {
         <main className="profile-informations">
             <div className="welcome-informations">
                 <h1 className="welcome-user">
-                    Welcome back<br />
-                    {userData ? userData.userName + " !" : "Name !"}
+                  Welcome back<br />
+                  {userData ? userData.userName + " !" : "Name !"}
                 </h1>
                 <button>Edit Name</button>
             </div>
