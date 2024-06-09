@@ -23,6 +23,7 @@ function Profile() {
   }
 
   const [userData, SetUserData] = useState("");
+  const [editMode, setEditMode] = useState("notEditing");
 
   useEffect(() => {
     fetch(url, {
@@ -49,16 +50,44 @@ function Profile() {
       });
   }, [store, token]);
 
+  function editUserName() {
+    if (editMode === "notEditing") {
+      setEditMode("editing");
+    }
+    else {
+      setEditMode("notEditing");
+    }
+  }
+
   return (
     <div className="profile_page">
         <Header />
         <main className="profile-informations">
             <div className="welcome-informations">
-                <h1 className="welcome-user">
+                <h1 className="welcome-user" style={editMode === "editing" ? {display: 'none'} : {display: 'block'}}>
                   Welcome back<br />
                   {userData ? userData.userName + " !" : "Name !"}
                 </h1>
-                <button>Edit Name</button>
+                <button onClick={editUserName} style={editMode === "editing" ? {display: 'none'} : {display: 'block'}}>Edit Name</button>
+                <section className="user-informations" style={editMode === "notEditing" ? {display: 'none'} : {display: 'flex'}}>
+                  <p className="user_title">Edit user info</p>
+                  <div className="user_block">
+                    <label htmlFor="username">User name:</label>
+                    <input type="text" name="username" id="username" />
+                  </div>
+                  <div className="user_block">
+                    <label htmlFor="firstname">First name:</label>
+                    <input type="text" name="firstname" id="firstname" />
+                  </div>
+                  <div className="user_block">
+                    <label htmlFor="lastname">Last name:</label>
+                    <input type="text" name="lastname" id="lastname" />
+                  </div>
+                  <div className="actions_buttons">
+                    <button>Save</button>
+                    <button onClick={editUserName}>Cancel</button>
+                  </div>
+                </section>
             </div>
             <div className="argentbank-user-cards">
               <BankCard />
