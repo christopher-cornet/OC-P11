@@ -5,7 +5,7 @@ import Footer from "../../components/Footer/Footer"
 import { useState, useEffect } from 'react';
 import { useStore } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { userProfile } from '../../redux/actions';
+import { userProfile, updateUsername } from '../../redux/actions';
 
 const url = "http://localhost:3001/api/v1/user/profile";
 
@@ -24,6 +24,8 @@ function Profile() {
 
   const [userData, SetUserData] = useState("");
   const [editMode, setEditMode] = useState("notEditing");
+
+  const [userName, setUserName] = useState("");
 
   useEffect(() => {
     fetch(url, {
@@ -50,7 +52,8 @@ function Profile() {
       });
   }, [store, token]);
 
-  async function editUserName(event) {
+  // On click on the "Edit Name" button : Display the form
+  function displayForm(event) {
     event.preventDefault();
 
     // If we are not editing the user informations
@@ -65,10 +68,39 @@ function Profile() {
     }
   }
 
+  // On click on the "Save" button :
+  // Edit and Update the username
+  async function editUserName(event) {
+    event.preventDefault();
+
+    // Update the username
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        userName: userName
+      })
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      SetUserData(data.body);
+      displayForm(event);
+      // const username = data.body.userName;
+      // store.dispatch(updateUsername(username));
+    }
+  }
+
+  // Return the username
   function handleUsernameChange(event) {
     // setUsername(event.target.value);
     // store.dispatch(updateUsername(event.target.value));
-    // setUserName(event.target.value);
+    setUserName(event.target.value);
+    // console.log(event.target.value);
     return event.target.value;
   }
 
@@ -83,7 +115,7 @@ function Profile() {
                   Welcome back<br />
                   {userData ? userData.userName + " !" : "Name !"}
                 </h1>
-                <button onClick={editUserName} style={editMode === "editing" ? {display: 'none'} : {display: 'block'}}>Edit Name</button>
+                <button onClick={displayForm} style={editMode === "editing" ? {display: 'none'} : {display: 'block'}}>Edit Name</button>
                 <form className="user-informations" style={editMode === "notEditing" ? {display: 'none'} : {display: 'flex'}}>
                   <p className="user_title">Edit user info</p>
                   <div className="user_block">
@@ -100,7 +132,7 @@ function Profile() {
                   </div>
                   <div className="actions_buttons">
                     <button onClick={editUserName}>Save</button>
-                    <button onClick={editUserName}>Cancel</button>
+                    <button onClick={displayForm}>Cancel</button>
                   </div>
                 </form>
             </div>
