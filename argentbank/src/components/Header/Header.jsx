@@ -5,9 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser, faGear, faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import { useDispatch, useStore } from "react-redux";
-import { userProfile } from "../../redux/actions"
+import { userProfile, logoutAction } from "../../redux/actions"
 import { useNavigate } from "react-router-dom";
-import { logoutAction } from "../../redux/actions";
 import "./Header.css";
 
 const url = "http://localhost:3001/api/v1/user/profile";
@@ -15,7 +14,7 @@ const url = "http://localhost:3001/api/v1/user/profile";
 function Header() {
   const isProfilePage = window.location.pathname === "/profile";
 
-  const token = window.sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const store = useStore();
@@ -52,7 +51,7 @@ function Header() {
     }, [isProfilePage, token, dispatch]);
 
   function logout() {
-    window.sessionStorage.removeItem("token");
+    localStorage.removeItem("token");
     store.dispatch(logoutAction());
     navigate("/");
   }

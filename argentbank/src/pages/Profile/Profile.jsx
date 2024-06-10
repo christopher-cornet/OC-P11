@@ -15,7 +15,7 @@ function Profile() {
   const store = useStore();
   let navigate = useNavigate();
 
-  const token = window.sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   // If the user is not logged in, redirect the user to the login page
   if (!token) {
@@ -50,14 +50,29 @@ function Profile() {
       });
   }, [store, token]);
 
-  function editUserName() {
+  async function editUserName(event) {
+    event.preventDefault();
+
+    // If we are not editing the user informations
+    // Change the mode to "Editing"
     if (editMode === "notEditing") {
       setEditMode("editing");
     }
+    // Else if we are editing the user informations
+    // Change the mode to "not Editing"
     else {
       setEditMode("notEditing");
     }
   }
+
+  function handleUsernameChange(event) {
+    // setUsername(event.target.value);
+    // store.dispatch(updateUsername(event.target.value));
+    // setUserName(event.target.value);
+    return event.target.value;
+  }
+
+  console.log(store.getState());
 
   return (
     <div className="profile_page">
@@ -69,25 +84,25 @@ function Profile() {
                   {userData ? userData.userName + " !" : "Name !"}
                 </h1>
                 <button onClick={editUserName} style={editMode === "editing" ? {display: 'none'} : {display: 'block'}}>Edit Name</button>
-                <section className="user-informations" style={editMode === "notEditing" ? {display: 'none'} : {display: 'flex'}}>
+                <form className="user-informations" style={editMode === "notEditing" ? {display: 'none'} : {display: 'flex'}}>
                   <p className="user_title">Edit user info</p>
                   <div className="user_block">
                     <label htmlFor="username">User name:</label>
-                    <input type="text" name="username" id="username" />
+                    <input type="text" name="username" id="username" defaultValue={store.getState().user.data.userName || ""} onChange={handleUsernameChange} />
                   </div>
                   <div className="user_block">
                     <label htmlFor="firstname">First name:</label>
-                    <input type="text" name="firstname" id="firstname" />
+                    <input type="text" name="firstname" id="firstname" defaultValue={store.getState().user.data.firstName || ""} disabled />
                   </div>
                   <div className="user_block">
                     <label htmlFor="lastname">Last name:</label>
-                    <input type="text" name="lastname" id="lastname" />
+                    <input type="text" name="lastname" id="lastname" defaultValue={store.getState().user.data.lastName || ""} disabled />
                   </div>
                   <div className="actions_buttons">
-                    <button>Save</button>
+                    <button onClick={editUserName}>Save</button>
                     <button onClick={editUserName}>Cancel</button>
                   </div>
-                </section>
+                </form>
             </div>
             <div className="argentbank-user-cards">
               <BankCard />

@@ -1,3 +1,5 @@
+// Auth actions
+
 export const loginAction = (token) => {
   return {
     type: 'LOGIN',
@@ -11,9 +13,18 @@ export const logoutAction = () => {
   }
 };
 
+// User actions
+
 export const userProfile = (userData) => {
   return {
     type: 'GET_USERPROFILE',
     payload: userData
+  }
+}
+
+export const updateUsername = (username) => {
+  return {
+    type: 'EDIT_USERNAME',
+    payload: username
   }
 }

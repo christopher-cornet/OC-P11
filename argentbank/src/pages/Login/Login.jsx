@@ -20,7 +20,7 @@ function Login() {
     console.log(data);
     if (email && password) {
       if (data.status === 200) {
-        window.sessionStorage.setItem("token", data.body.token);
+        localStorage.setItem("token", data.body.token);
         store.dispatch(loginAction(data.body.token));
         navigate("/profile");
       }
