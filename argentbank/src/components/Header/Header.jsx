@@ -4,7 +4,7 @@ import logo from "../../images/argentBankLogo.webp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser, faGear, faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { useStore } from "react-redux";
-import { logoutAction } from "../../redux/actions"
+import { logoutAction, userProfile } from "../../redux/actions"
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
 
@@ -16,10 +16,13 @@ function Header() {
   const store = useStore();
 
   console.log(token);
+  console.log(store.getState());
 
+  // Logout the user and reset the data
   function logout() {
     localStorage.removeItem("token");
     store.dispatch(logoutAction());
+    store.dispatch(userProfile({}));
     navigate("/");
   }
 

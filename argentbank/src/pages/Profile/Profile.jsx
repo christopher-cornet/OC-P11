@@ -93,8 +93,6 @@ function Profile() {
       store.dispatch(updateUsername(data.body.userName));
       console.log("username : ", data.body.userName);
       displayForm(event);
-      // const username = data.body.userName;
-      // store.dispatch(updateUsername(username));
     }
   }
 
