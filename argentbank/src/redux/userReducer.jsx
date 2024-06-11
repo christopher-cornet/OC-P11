@@ -17,7 +17,7 @@ const userReducer = (state = initialState, action) => {
         response: false,
         data: {
           ...state.data,
-          username: action.payload
+          userName: action.payload
         } 
       };
     default:

@@ -27,6 +27,7 @@ function Profile() {
 
   const [userName, setUserName] = useState("");
 
+  // Get user data
   useEffect(() => {
     fetch(url, {
       method: "POST",
@@ -89,6 +90,8 @@ function Profile() {
       const data = await response.json();
       console.log(data);
       SetUserData(data.body);
+      store.dispatch(updateUsername(data.body.userName));
+      console.log("username : ", data.body.userName);
       displayForm(event);
       // const username = data.body.userName;
       // store.dispatch(updateUsername(username));
@@ -97,10 +100,8 @@ function Profile() {
 
   // Return the username
   function handleUsernameChange(event) {
-    // setUsername(event.target.value);
-    // store.dispatch(updateUsername(event.target.value));
     setUserName(event.target.value);
-    // console.log(event.target.value);
+    
     return event.target.value;
   }
 

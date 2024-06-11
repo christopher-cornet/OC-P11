@@ -22,9 +22,9 @@ export const userProfile = (userData) => {
   }
 }
 
-export const updateUsername = (username) => {
+export const updateUsername = (userName) => {
   return {
     type: 'EDIT_USERNAME',
-    payload: username
+    payload: userName
   }
 }
