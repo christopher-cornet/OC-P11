@@ -69,7 +69,7 @@ paths:
        # - application/json
       responses:
         '200':
-          description: User profile retrieved successully
+          description: User profile retrieved successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
@@ -94,11 +94,85 @@ paths:
         - application/json
       responses:
         '200':
-          description: User profile retrieved successully
+          description: User profile updated successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
           description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /transactions:
+    get:
+      tags:
+        - Transactions Module
+      summary: Get all transactions
+      description: API to retrieve all transactions for the current month, grouped by account
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transactions retrieved successfully
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Transaction'
+        '400':
+          description: Invalid request
+        '500':
+          description: Internal Server Error
+  /transactions/{transactionId}:
+    get:
+      tags:
+        - Transactions Module
+      summary: Get transaction by ID
+      description: API to retrieve a single transaction by ID
+      parameters:
+        - in: path
+          name: transactionId
+          required: true
+          type: string
+          description: ID of the transaction to retrieve
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction details retrieved successfully
+          schema:
+            $ref: '#/definitions/Transaction'
+        '400':
+          description: Invalid request
+        '404':
+          description: Transaction not found
+        '500':
+          description: Internal Server Error
+    put:
+      tags:
+        - Transactions Module
+      summary: Update transaction
+      description: API to update the category or note of a transaction
+      parameters:
+        - in: path
+          name: transactionId
+          required: true
+          type: string
+          description: ID of the transaction to update
+        - in: body
+          name: body
+          required: true
+          description: Transaction update payload
+          schema:
+            $ref: '#/definitions/TransactionUpdate'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction updated successfully
+          schema:
+            $ref: '#/definitions/Transaction'
+        '400':
+          description: Invalid request
+        '404':
+          description: Transaction not found
         '500':
           description: Internal Server Error
 securityDefinitions:
@@ -155,4 +229,32 @@ definitions:
     type: object
     properties:
       userName:
+        type: string
+  Transaction:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      date:
+        type: string
+      description:
+        type: string
+      amount:
+        type: number
+      balance:
+        type: number
+      transactionType:
+        type: string
+      category:
+        type: string
+      note:
+        type: string
+  TransactionUpdate:
+    type: object
+    properties:
+      category:
+        type: string
+      note:
         type: string

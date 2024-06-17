@@ -1,5 +1,4 @@
 let initialState = {
-  response: false,
   data: {}
 }
 
@@ -8,13 +7,11 @@ const userReducer = (state = initialState, action) => {
     case "GET_USERPROFILE":
       return {
         ...state,
-        response: true,
         data: action.payload
       };
     case "EDIT_USERNAME":
       return {
         ...state,
-        response: false,
         data: {
           ...state.data,
           userName: action.payload

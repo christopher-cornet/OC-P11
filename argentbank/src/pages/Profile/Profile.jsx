@@ -40,7 +40,6 @@ function Profile() {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
         SetUserData(data.body);
         store.dispatch(
           userProfile({
@@ -119,15 +118,15 @@ function Profile() {
                   <p className="user_title">Edit user info</p>
                   <div className="user_block">
                     <label htmlFor="username">User name:</label>
-                    <input type="text" name="username" id="username" defaultValue={store.getState().user.data.userName || ""} onChange={handleUsernameChange} />
+                    <input type="text" name="username" id="username" defaultValue={store.getState().user.data.userName} onChange={handleUsernameChange} />
                   </div>
                   <div className="user_block">
                     <label htmlFor="firstname">First name:</label>
-                    <input type="text" name="firstname" id="firstname" defaultValue={store.getState().user.data.firstName || ""} disabled />
+                    <input type="text" name="firstname" id="firstname" defaultValue={store.getState().user.data.firstName} disabled />
                   </div>
                   <div className="user_block">
                     <label htmlFor="lastname">Last name:</label>
-                    <input type="text" name="lastname" id="lastname" defaultValue={store.getState().user.data.lastName || ""} disabled />
+                    <input type="text" name="lastname" id="lastname" defaultValue={store.getState().user.data.lastName} disabled />
                   </div>
                   <div className="actions_buttons">
                     <button onClick={editUserName}>Save</button>

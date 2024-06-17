@@ -11,11 +11,9 @@ import "./Header.css";
 function Header() {
   const isProfilePage = window.location.pathname === "/profile";
 
-  const token = localStorage.getItem("token");
   let navigate = useNavigate();
   const store = useStore();
 
-  console.log(token);
   console.log(store.getState());
 
   // Logout the user and reset the data
