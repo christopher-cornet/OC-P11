@@ -156,13 +156,14 @@ paths:
           description: Transaction not found
         '500':
           description: Internal Server Error
+  /transactions/{transactionId}/category:
     put:
       security:
         - Bearer: []
       tags:
         - Transactions Module
-      summary: Update transaction
-      description: API to update the category or note of a transaction
+      summary: Update category
+      description: API to update the category of a transaction
       parameters:
         - in: path
           name: transactionId
@@ -172,14 +173,14 @@ paths:
         - in: body
           name: body
           required: true
-          description: Transaction update payload
+          description: Category update payload
           schema:
-            $ref: '#/definitions/TransactionUpdate'
+            $ref: '#/definitions/CategoryUpdate'
       produces:
         - application/json
       responses:
         '200':
-          description: Transaction updated successfully
+          description: Category updated successfully
           schema:
             $ref: '#/definitions/Transaction'
         '400':
@@ -188,25 +189,31 @@ paths:
           description: Transaction not found
         '500':
           description: Internal Server Error
+  /transactions/{transactionId}/note:
     put:
       security:
         - Bearer: []
       tags:
         - Transactions Module
-      summary: Update transaction
-      description: API to update the category or note of a transaction
+      summary: Update note
+      description: API to update the note of a transaction
       parameters:
+        - in: path
+          name: transactionId
+          required: true
+          type: string
+          description: ID of the transaction to update
         - in: body
           name: body
           required: true
-          description: Transaction update payload
+          description: Note update payload
           schema:
-            $ref: '#/definitions/TransactionUpdate'
+            $ref: '#/definitions/NoteUpdate'
       produces:
         - application/json
       responses:
         '200':
-          description: Transaction updated successfully
+          description: Note updated successfully
           schema:
             $ref: '#/definitions/Transaction'
         '400':
@@ -298,10 +305,13 @@ definitions:
         type: string
       lastDay:
         type: string
-  TransactionUpdate:
+  CategoryUpdate:
     type: object
     properties:
       category:
         type: string
+  NoteUpdate:
+    type: object
+    properties:
       note:
         type: string
