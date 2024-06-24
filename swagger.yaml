@@ -103,10 +103,19 @@ paths:
           description: Internal Server Error
   /transactions:
     get:
+      security:
+        - Bearer: []
       tags:
         - Transactions Module
       summary: Get all transactions
       description: API to retrieve all transactions for the current month, grouped by account
+      parameters:
+        - in: body
+          name: body
+          description: The account number, First day of the month, Last day of the month
+          required: true
+          schema:
+            $ref: '#/definitions/GetAllTransactions'
       produces:
         - application/json
       responses:
@@ -122,6 +131,8 @@ paths:
           description: Internal Server Error
   /transactions/{transactionId}:
     get:
+      security:
+        - Bearer: []
       tags:
         - Transactions Module
       summary: Get transaction by ID
@@ -146,6 +157,8 @@ paths:
         '500':
           description: Internal Server Error
     put:
+      security:
+        - Bearer: []
       tags:
         - Transactions Module
       summary: Update transaction
@@ -156,6 +169,33 @@ paths:
           required: true
           type: string
           description: ID of the transaction to update
+        - in: body
+          name: body
+          required: true
+          description: Transaction update payload
+          schema:
+            $ref: '#/definitions/TransactionUpdate'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction updated successfully
+          schema:
+            $ref: '#/definitions/Transaction'
+        '400':
+          description: Invalid request
+        '404':
+          description: Transaction not found
+        '500':
+          description: Internal Server Error
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Update transaction
+      description: API to update the category or note of a transaction
+      parameters:
         - in: body
           name: body
           required: true
@@ -233,8 +273,6 @@ definitions:
   Transaction:
     type: object
     properties:
-      id:
-        type: string
       name:
         type: string
       date:
@@ -250,6 +288,15 @@ definitions:
       category:
         type: string
       note:
+        type: string
+  GetAllTransactions:
+    type: object
+    properties:
+      accountNumber:
+        type: string
+      firstDay:
+        type: string
+      lastDay:
         type: string
   TransactionUpdate:
     type: object
