@@ -17,11 +17,6 @@ function Profile() {
 
   const token = localStorage.getItem("token");
 
-  // If the user is not logged in, redirect the user to the login page
-  if (!token) {
-    navigate("/login");
-  }
-
   const [userData, SetUserData] = useState("");
   const [editMode, setEditMode] = useState("notEditing");
 
@@ -29,28 +24,35 @@ function Profile() {
 
   // Get user data
   useEffect(() => {
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => {
-        return res.json();
+    // If the user is logged in, fetch and display the user's data
+    if (token) {
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then((data) => {
-        SetUserData(data.body);
-        store.dispatch(
-          userProfile({
-            email: data.body.email,
-            firstName: data.body.firstName,
-            lastName: data.body.lastName,
-            userName: data.body.userName,
-          })
-        );
-      });
-  }, [store, token]);
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          SetUserData(data.body);
+          store.dispatch(
+            userProfile({
+              email: data.body.email,
+              firstName: data.body.firstName,
+              lastName: data.body.lastName,
+              userName: data.body.userName,
+            })
+          );
+        });
+    }
+    else {
+      navigate("/login");
+    }
+  }, [store, token, navigate]);
 
   // On click on the "Edit Name" button : Display the form
   function displayForm(event) {
