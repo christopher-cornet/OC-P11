@@ -110,6 +110,11 @@ paths:
       summary: Get all transactions
       description: API to retrieve all transactions for the current month, grouped by account
       parameters:
+        - in: header
+          name: token
+          description: Authentication Token
+          required: true
+          type: string
         - in: body
           name: body
           description: The account number, First day of the month, Last day of the month
@@ -127,6 +132,8 @@ paths:
               $ref: '#/definitions/Transaction'
         '400':
           description: Invalid request
+        '403':
+           description: Unauthorized
         '500':
           description: Internal Server Error
   /transactions/{transactionId}:
@@ -138,6 +145,11 @@ paths:
       summary: Get transaction by ID
       description: API to retrieve a single transaction by ID
       parameters:
+        - in: header
+          name: token
+          description: Authentication Token
+          required: true
+          type: string
         - in: path
           name: transactionId
           required: true
@@ -152,11 +164,13 @@ paths:
             $ref: '#/definitions/Transaction'
         '400':
           description: Invalid request
+        '403':
+           description: Unauthorized
         '404':
           description: Transaction not found
         '500':
           description: Internal Server Error
-  /transactions/{transactionId}/category:
+  /transactions/category/{transactionId}:
     put:
       security:
         - Bearer: []
@@ -165,6 +179,11 @@ paths:
       summary: Update category
       description: API to update the category of a transaction
       parameters:
+        - in: header
+          name: token
+          description: Authentication Token
+          required: true
+          type: string
         - in: path
           name: transactionId
           required: true
@@ -185,11 +204,13 @@ paths:
             $ref: '#/definitions/Transaction'
         '400':
           description: Invalid request
+        '403':
+           description: Unauthorized
         '404':
           description: Transaction not found
         '500':
           description: Internal Server Error
-  /transactions/{transactionId}/note:
+  /transactions/note/{transactionId}:
     put:
       security:
         - Bearer: []
@@ -198,6 +219,11 @@ paths:
       summary: Update note
       description: API to update the note of a transaction
       parameters:
+        - in: header
+          name: token
+          description: Authentication Token
+          required: true
+          type: string
         - in: path
           name: transactionId
           required: true
@@ -218,6 +244,8 @@ paths:
             $ref: '#/definitions/Transaction'
         '400':
           description: Invalid request
+        '403':
+           description: Unauthorized
         '404':
           description: Transaction not found
         '500':
