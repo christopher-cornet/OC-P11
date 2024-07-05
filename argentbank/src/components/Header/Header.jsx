@@ -74,10 +74,10 @@ function Header() {
         {isLoggedIn ? (
           isHomePage ? (
             <section className="login">
-              <Link to="/profile"><p className="sign-in" style={{marginRight: "10px", color: "#61b37b", fontWeight: "600"}} >{isLoggedIn ? store.getState().user.data.userName  : "Name"}</p></Link>
-              <Link to="/profile"><FontAwesomeIcon icon={faCircleUser} className="user-icon" size="lg" style={{marginRight: "10px", color: "#61b37b", height: "25px"}} /></Link>
-              <p className="sign-in" style={{marginRight: "10px", color: "#61b37b", fontWeight: "600", cursor: "pointer"}} onClick={logout}>Sign Out</p>
-              <FontAwesomeIcon icon={faPowerOff} size="lg" className="logout-button" style={{color: "#61b37b", height: "25px"}} onClick={logout} />
+              <Link to="/profile"><p className="sign-in" style={{marginRight: "10px", color: "#2c3e50", fontWeight: "600"}} >{isLoggedIn ? store.getState().user.data.userName  : "Name"}</p></Link>
+              <Link to="/profile"><FontAwesomeIcon icon={faCircleUser} className="user-icon" size="lg" style={{marginRight: "10px", color: "#2c3e50", height: "25px"}} /></Link>
+              <p className="sign-in" style={{marginRight: "10px", color: "#2c3e50", fontWeight: "600", cursor: "pointer"}} onClick={logout}>Sign Out</p>
+              <FontAwesomeIcon icon={faPowerOff} size="lg" className="logout-button" style={{color: "#2c3e50", height: "25px"}} onClick={logout} />
             </section>
           ) : (
             <section className="login">
