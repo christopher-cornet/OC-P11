@@ -127,9 +127,7 @@ paths:
         '200':
           description: Transactions retrieved successfully
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/Transaction'
+            $ref: '#/definitions/Transaction'
         '400':
           description: Invalid request
         '403':

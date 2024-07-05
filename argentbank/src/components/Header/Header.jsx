@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../images/argentBankLogo.webp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,11 +8,51 @@ import { logoutAction, userProfile } from "../../redux/actions"
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
 
+const url = "http://localhost:3001/api/v1/user/profile";
+
 function Header() {
-  const isProfilePage = window.location.pathname === "/profile";
+  const isLoggedIn = localStorage.getItem("token");
+  const isHomePage = window.location.pathname === "/";
 
   let navigate = useNavigate();
+
+  const token = localStorage.getItem("token");
+
   const store = useStore();
+
+  console.log("Store:", store.getState());
+
+  // eslint-disable-next-line
+  const [userData, SetUserData] = useState("");
+
+  // Get user data
+  useEffect(() => {
+    // If the user is logged in, fetch and display the user's data
+    if (token) {
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          SetUserData(data.body);
+          store.dispatch(
+            userProfile({
+              email: data.body.email,
+              firstName: data.body.firstName,
+              lastName: data.body.lastName,
+              userName: data.body.userName,
+            })
+          );
+        });
+    }
+  }, [store, token]);
 
   console.log(store.getState());
 
@@ -31,13 +71,22 @@ function Header() {
             <img src={logo} className="logo" alt="Accueil du site Argent Bank" />
           </section>
         </Link>
-        {isProfilePage ? (
-          <section className="login">
-            <p className="sign-in" style={{marginRight: "10px", color: "#61b37b", fontWeight: "600"}}>{store ? store.getState().user.data.userName : "Name"}</p>
-            <FontAwesomeIcon icon={faCircleUser} className="user-icon" size="lg" style={{marginRight: "20px", color: "#61b37b", height: "25px"}} />
-            <FontAwesomeIcon icon={faGear} size="lg" style={{marginRight: "20px", color: "#61b37b", height: "25px"}} />
-            <FontAwesomeIcon icon={faPowerOff} size="lg" className="logout-button" style={{color: "#61b37b", height: "25px"}} onClick={logout} />
-          </section>
+        {isLoggedIn ? (
+          isHomePage ? (
+            <section className="login">
+              <Link to="/profile"><p className="sign-in" style={{marginRight: "10px", color: "#61b37b", fontWeight: "600"}} >{isLoggedIn ? store.getState().user.data.userName  : "Name"}</p></Link>
+              <Link to="/profile"><FontAwesomeIcon icon={faCircleUser} className="user-icon" size="lg" style={{marginRight: "10px", color: "#61b37b", height: "25px"}} /></Link>
+              <p className="sign-in" style={{marginRight: "10px", color: "#61b37b", fontWeight: "600", cursor: "pointer"}} onClick={logout}>Sign Out</p>
+              <FontAwesomeIcon icon={faPowerOff} size="lg" className="logout-button" style={{color: "#61b37b", height: "25px"}} onClick={logout} />
+            </section>
+          ) : (
+            <section className="login">
+              <Link to="/profile"><p className="sign-in" style={{marginRight: "10px", color: "#61b37b", fontWeight: "600"}} >{isLoggedIn ? store.getState().user.data.userName  : "Name"}</p></Link>
+              <Link to="/profile"><FontAwesomeIcon icon={faCircleUser} className="user-icon" size="lg" style={{marginRight: "20px", color: "#61b37b", height: "25px"}} /></Link>
+              <FontAwesomeIcon icon={faGear} size="lg" style={{marginRight: "20px", color: "#61b37b", height: "25px"}} />
+              <FontAwesomeIcon icon={faPowerOff} size="lg" className="logout-button" style={{color: "#61b37b", height: "25px"}} onClick={logout} />
+            </section>
+          )
         ) : (
         <Link to="/login">
           <section className="login">
